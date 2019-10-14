@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.catalogue.DAO.CartService;
 import com.catalogue.DAO.InventoryService;
-import com.catalogue.model.Item;
+import com.catalogue.model.Product;
 
 @RestController
 @RequestMapping("/catalogue")
@@ -22,30 +21,21 @@ public class CatalogueRestController {
 	@Autowired
 	private InventoryService inventoryService;
 
-	@Autowired
-	private CartService cartService;
-
-	@GetMapping("/items")
-	public ResponseEntity<List<Item>> getAllItems() {
-		List<Item> list = inventoryService.getAllItems();
+	@GetMapping("/products")
+	public ResponseEntity<List<Product>> getAllProducts() {
+		List<Product> list = inventoryService.getAllProducts();
 		return (list == null || list.size() == 0) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(list);
 	}
 
-	@GetMapping("/items/{id}")
-	public ResponseEntity<Item> getItemById(@PathVariable int id) {
-		Item item = inventoryService.getItemById(id);
-		return item == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(item);
+	@GetMapping("/products/{id}")
+	public ResponseEntity<Product> getProductById(@PathVariable String id) {
+		Product product = inventoryService.getProductById(id);
+		return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(product);
 	}
 
-	@GetMapping("/itemByName/{name}")
-	public ResponseEntity<Item> getItemByName(@PathVariable String name) {
-		Item item = inventoryService.getItemByName(name);
-		return item == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(item);
-	}
-
-	@PostMapping("/cart/addItemToCart")
-	public void addToCart(@RequestBody Item item) {
-		boolean status = cartService.addToCart(item);
-
+	@GetMapping("/productByName/{name}")
+	public ResponseEntity<Product> getProductByName(@PathVariable String name) {
+		Product product = inventoryService.getProductByName(name);
+		return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(product);
 	}
 }
