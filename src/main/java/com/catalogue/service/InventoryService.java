@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.catalogue.model.ConstantItems;
-import com.catalogue.model.Product;
 import com.catalogue.model.Products;
+import com.sapient.ecomm_commons.domain.Product;
 
 @Component
 public class InventoryService {
@@ -27,12 +27,10 @@ public class InventoryService {
 	private RestTemplate restTemplate;
 
 	public List<Product> getAllProducts() {
-		System.out.println("Inventory URI::::"+inventoryURI);
-		Products products = restTemplate.getForObject(inventoryURI, Products.class);
-		if (products!=null && products.getList() != null && products.getList().size() > 0) {
-			return products.getList();
-		}
-		return null;
+		System.out.println("Inventory URI::::" + inventoryURI);
+		List<Product> products = (List<Product>) restTemplate.getForObject(inventoryURI, List.class);
+
+		return products;
 	}
 
 	public Product getProductById(String id) {

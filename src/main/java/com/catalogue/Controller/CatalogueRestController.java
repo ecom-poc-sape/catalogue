@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.catalogue.model.Product;
 import com.catalogue.service.InventoryService;
+import com.sapient.ecomm_commons.domain.Product;
 
 @RestController
 @RequestMapping("/catalogue")
