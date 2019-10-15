@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.catalogue.service.InventoryService;
+import com.catalogue.service.CatalogueService;
 import com.sapient.ecomm_commons.domain.Product;
 
 @RestController
@@ -17,23 +17,23 @@ import com.sapient.ecomm_commons.domain.Product;
 public class CatalogueRestController {
 
 	@Autowired
-	private InventoryService inventoryService;
+	private CatalogueService catalogueService;
 
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getAllProducts() {
-		List<Product> list = inventoryService.getAllProducts();
+		List<Product> list = catalogueService.getAllProducts();
 		return (list == null || list.size() == 0) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProductById(@PathVariable String id) {
-		Product product = inventoryService.getProductById(id);
+		Product product = catalogueService.getProductById(id);
 		return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(product);
 	}
 
 	@GetMapping("/productByName/{name}")
 	public ResponseEntity<Product> getProductByName(@PathVariable String name) {
-		Product product = inventoryService.getProductByName(name);
+		Product product = catalogueService.getProductByName(name);
 		return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(product);
 	}
 }

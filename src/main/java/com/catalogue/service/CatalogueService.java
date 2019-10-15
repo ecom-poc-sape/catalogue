@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.catalogue.model.ConstantItems;
-import com.catalogue.model.Products;
 import com.sapient.ecomm_commons.domain.Product;
 
-@Component
-public class InventoryService {
 
-	public InventoryService() {
+@Component
+public class CatalogueService {
+
+	public CatalogueService() {
 
 	}
 
@@ -29,13 +28,12 @@ public class InventoryService {
 	public List<Product> getAllProducts() {
 		System.out.println("Inventory URI::::" + inventoryURI);
 		List<Product> products = (List<Product>) restTemplate.getForObject(inventoryURI, List.class);
-
 		return products;
 	}
 
 	public Product getProductById(String id) {
 		List<Product> productLists = new ArrayList<Product>();
-		productLists = ConstantItems.products;
+		//Request Inventory to fetch by Id below
 		Iterator<Product> iterator = productLists.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
@@ -48,7 +46,7 @@ public class InventoryService {
 
 	public Product getProductByName(String name) {
 		List<Product> productLists = new ArrayList<Product>();
-		productLists = ConstantItems.products;
+		//Request Inventory to fetch by Name below
 		Iterator<Product> iterator = productLists.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
